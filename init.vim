@@ -39,6 +39,7 @@ Bundle 'mxw/vim-jsx'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-commentary'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'metakirby5/codi.vim'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -98,6 +99,8 @@ vnoremap > >gv
 " Moving with B / E feels better than with ^/$
 noremap B ^
 noremap E $
+noremap ^ <nop>
+noremap $ <nop>
 
 " We do not use arrow keys
 noremap <Up> <NOP>
@@ -121,9 +124,10 @@ noremap <silent> <leader>tt :CtrlP<CR>
 
 " I used to press <C-c> to exit a mode but this is not
 " quite the same as using <Esc>. Therefore it's remapped.
-noremap <C-c> <Esc>
-vnoremap <C-c> <Esc>
-inoremap <C-c> <Esc>
+vnoremap jk <Esc>
+inoremap jk <Esc>
+inoremap <Esc> <nop>
+vnoremap <Esc> <nop>
 
 " Settings for CtrlP
 let g:ctrlp_switch_buffer=0
