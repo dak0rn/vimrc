@@ -40,6 +40,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-commentary'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'metakirby5/codi.vim'
+Plugin 'takac/vim-hardtime'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -198,3 +199,6 @@ set backupdir=/tmp
 set backupskip=/tmp/*,/private/tmp/*
 set directory=/tmp
 set writebackup
+
+" Enable hard mode by default
+let g:hardtime_default_on = 1
