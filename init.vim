@@ -125,8 +125,8 @@ noremap <silent> <leader>tt :CtrlP<CR>
 
 " I used to press <C-c> to exit a mode but this is not
 " quite the same as using <Esc>. Therefore it's remapped.
-vnoremap jk <Esc>
-inoremap jk <Esc>
+vnoremap <C-c> <Esc>
+inoremap <C-c> <Esc>
 inoremap <Esc> <nop>
 vnoremap <Esc> <nop>
 
