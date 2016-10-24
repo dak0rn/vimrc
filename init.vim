@@ -41,6 +41,9 @@ Plugin 'tpope/vim-commentary'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'metakirby5/codi.vim'
 Plugin 'takac/vim-hardtime'
+Plugin 'sotte/presenting.vim'
+Plugin 'jacoborus/tender'
+Plugin 'oblitum/rainbow'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -202,3 +205,11 @@ set writebackup
 
 " Enable hard mode by default
 let g:hardtime_default_on = 1
+
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+colorscheme tender
+
+let g:rainbow_active = 1
