@@ -43,7 +43,8 @@ Plugin 'metakirby5/codi.vim'
 Plugin 'takac/vim-hardtime'
 Plugin 'sotte/presenting.vim'
 Plugin 'jacoborus/tender'
-Plugin 'oblitum/rainbow'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'altercation/vim-colors-solarized'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -145,9 +146,6 @@ set laststatus=2
 " Right aligned: git status, modified flag, filename w/out path
 set statusline=%=%{fugitive#statusline()}\ %m\ %t
 
-" Hide background color
-hi StatusLine ctermbg=NONE cterm=NONE
-
 " Show diff for unsaved changes
 function! s:DiffWithSaved()
     let filetype=&ft
@@ -204,12 +202,24 @@ set directory=/tmp
 set writebackup
 
 " Enable hard mode by default
-let g:hardtime_default_on = 1
+" let g:hardtime_default_on = 1
 
 if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme tender
+set background=dark
+colorscheme solarized
 
-let g:rainbow_active = 1
+" Disable colors for the useless stuff
+highlight Comment    guifg=#0088cc
+highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none
+highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none
+highlight Identifier ctermfg=none guifg=none cterm=none term=none gui=none
+highlight Statement  ctermfg=none guifg=none cterm=none term=none gui=none
+highlight PreProc    ctermfg=none guifg=none cterm=none term=none gui=none
+highlight Type       ctermfg=none guifg=none cterm=none term=none gui=none
+highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none
+highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none
+hi StatusLine ctermbg=NONE cterm=NONE guibg=none gui=none
+
