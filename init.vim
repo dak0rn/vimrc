@@ -42,7 +42,6 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'metakirby5/codi.vim'
 Plugin 'takac/vim-hardtime'
 Plugin 'sotte/presenting.vim'
-Plugin 'jacoborus/tender'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'altercation/vim-colors-solarized'
 
@@ -212,7 +211,7 @@ set background=dark
 colorscheme solarized
 
 " Disable colors for the useless stuff
-highlight Comment    guifg=#0088cc
+highlight Comment    guifg=#586e75
 highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Identifier ctermfg=none guifg=none cterm=none term=none gui=none
@@ -222,4 +221,5 @@ highlight Type       ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none
 hi StatusLine ctermbg=NONE cterm=NONE guibg=none gui=none
-
+highlight LineNr ctermfg=none guifg=#268bd2 cterm=none term=none gui=none
+highlight CursorLineNr ctermfg=none guifg=#2aa198 cterm=none term=none gui=none
