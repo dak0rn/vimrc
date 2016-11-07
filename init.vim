@@ -208,9 +208,10 @@ if (has("termguicolors"))
 endif
 
 set background=dark
-colorscheme solarized
+" colorscheme solarized
 
 " Disable colors for the useless stuff
+highlight Normal guifg=#839496 guibg=#002b36
 highlight Comment    guifg=#586e75
 highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none
@@ -220,6 +221,11 @@ highlight PreProc    ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Type       ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none
 highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none
-hi StatusLine ctermbg=NONE cterm=NONE guibg=none gui=none
-highlight LineNr ctermfg=none guifg=#268bd2 cterm=none term=none gui=none
+highlight Todo guibg=none guifg=#dc322f
+hi StatusLine ctermbg=NONE cterm=NONE guibg=#073642 gui=none
+hi StatusLineNC ctermbg=none cterm=none guibg=#073642 guifg=#073642 gui=none
+highlight LineNr ctermfg=none guifg=#586e75 cterm=none term=none gui=none
 highlight CursorLineNr ctermfg=none guifg=#2aa198 cterm=none term=none gui=none
+highlight VertSplit guifg=#073642 guibg=#073642
+highlight NonText guifg=#002b36
+highlight SpecialKeys guifg=#586e75
