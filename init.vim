@@ -229,3 +229,9 @@ highlight CursorLineNr ctermfg=none guifg=#2aa198 cterm=none term=none gui=none
 highlight VertSplit guifg=#073642 guibg=#073642
 highlight NonText guifg=#002b36
 highlight SpecialKeys guifg=#586e75
+highlight Search guifg=#002b36 guibg=#839496
+highlight IncSearch guifg=#002b36 guibg=#839496
+highlight Pmenu guibg=#073642 guifg=#93a1a1
+highlight PmenuSel guibg=#586e75 guifg=#839496
+highlight PmenuThumb guibg=#073642 guifg=none
+highlight PmenuSbar guibg=#073642 guifg=none
