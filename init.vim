@@ -235,6 +235,5 @@ highlight Pmenu guibg=#073642 guifg=#93a1a1
 highlight PmenuSel guibg=#586e75 guifg=#839496
 highlight PmenuThumb guibg=#073642 guifg=none
 highlight PmenuSbar guibg=#073642 guifg=none
-highlight Error guibg=none guifg=#dc322f
 highlight ConsoleWarning guifg=#b58900
 match ConsoleWarning /console.\(warn\|log\|error\|dir\|table\)/
