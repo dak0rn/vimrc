@@ -213,17 +213,17 @@ set background=dark
 " Disable colors for the useless stuff
 highlight Normal guifg=#839496 guibg=#002b36
 highlight Comment    guifg=#586e75
-highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none
-highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none
-highlight Identifier ctermfg=none guifg=none cterm=none term=none gui=none
-highlight Statement  ctermfg=none guifg=none cterm=none term=none gui=none
-highlight PreProc    ctermfg=none guifg=none cterm=none term=none gui=none
-highlight Type       ctermfg=none guifg=none cterm=none term=none gui=none
-highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none
-highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none
-highlight Todo guibg=none guifg=#dc322f
-hi StatusLine ctermbg=NONE cterm=NONE guibg=#073642 gui=none
-hi StatusLineNC ctermbg=none cterm=none guibg=#073642 guifg=#073642 gui=none
+highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight Identifier ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight Statement  ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight PreProc    ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight Type       ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
+highlight Todo guibg=none guifg=#268bd2
+highlight StatusLine ctermbg=NONE cterm=NONE guibg=#073642 gui=none
+highlight StatusLineNC ctermbg=none cterm=none guibg=#073642 guifg=#073642 gui=none
 highlight LineNr ctermfg=none guifg=#586e75 cterm=none term=none gui=none
 highlight CursorLineNr ctermfg=none guifg=#2aa198 cterm=none term=none gui=none
 highlight VertSplit guifg=#073642 guibg=#073642
@@ -235,3 +235,6 @@ highlight Pmenu guibg=#073642 guifg=#93a1a1
 highlight PmenuSel guibg=#586e75 guifg=#839496
 highlight PmenuThumb guibg=#073642 guifg=none
 highlight PmenuSbar guibg=#073642 guifg=none
+highlight Error guibg=none guifg=#dc322f
+highlight ConsoleWarning guifg=#b58900
+match ConsoleWarning /console.\(warn\|log\|error\|dir\|table\)/
