@@ -125,6 +125,7 @@ noremap <silent> <leader>] :CtrlP<CR>
 " Shortcuts for fugitive
 noremap <silent> <leader>\c :Gwrite<CR>:Gcommit<CR>
 noremap <silent> <leader>\s :Gstatus<CR>
+noremap <silent> <leader>\p :Gpush<CR>
 
 " I used to press <C-c> to exit a mode but this is not
 " quite the same as using <Esc>. Therefore it's remapped.
