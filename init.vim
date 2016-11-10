@@ -116,8 +116,15 @@ noremap <C-h> <C-W><C-H>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 
-" Trigger CtrlP search with \tt
-noremap <silent> <leader>tt :CtrlP<CR>
+" Hide search results with H
+noremap <silent> H :nohl<CR>
+
+" Trigger CtrlP search with \]
+noremap <silent> <leader>] :CtrlP<CR>
+
+" Shortcuts for fugitive
+noremap <silent> <leader>\c :Gwrite<CR>:Gcommit<CR>
+noremap <silent> <leader>\s :Gstatus<CR>
 
 " I used to press <C-c> to exit a mode but this is not
 " quite the same as using <Esc>. Therefore it's remapped.
