@@ -34,16 +34,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
 Plugin 'othree/yajs.vim'
 Bundle 'mxw/vim-jsx'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-commentary'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'metakirby5/codi.vim'
-Plugin 'takac/vim-hardtime'
 Plugin 'sotte/presenting.vim'
 Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'altercation/vim-colors-solarized'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -85,9 +81,6 @@ set rnu nu      " Use relative line numbering and show the current line number
 set nowrap      " Do not wrap on load
 set fo-=t       " Do not wrap when typing
 
-" Instead of using colorcolumn and textwidth
-" we use this little snippet
-au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>120v.\+', -1)
 
 " Better moving
 noremap j gj
@@ -200,15 +193,11 @@ set backupskip=/tmp/*,/private/tmp/*
 set directory=/tmp
 set writebackup
 
-" Enable hard mode by default
-" let g:hardtime_default_on = 1
-
 if (has("termguicolors"))
  set termguicolors
 endif
 
 set background=dark
-" colorscheme solarized
 
 " Disable colors for the useless stuff
 highlight Normal guifg=#839496 guibg=#002b36
@@ -223,17 +212,30 @@ highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none guibg
 highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
 highlight Todo guibg=none guifg=#268bd2
 highlight StatusLine ctermbg=NONE cterm=NONE guibg=#073642 gui=none
-highlight StatusLineNC ctermbg=none cterm=none guibg=#073642 guifg=#073642 gui=none
+highlight StatusLineNC ctermbg=none cterm=none guibg=#073642 guifg=#002b36 gui=none
 highlight LineNr ctermfg=none guifg=#586e75 cterm=none term=none gui=none
 highlight CursorLineNr ctermfg=none guifg=#2aa198 cterm=none term=none gui=none
 highlight VertSplit guifg=#073642 guibg=#073642
 highlight NonText guifg=#002b36
 highlight SpecialKeys guifg=#586e75
 highlight Search guifg=#002b36 guibg=#839496
-highlight IncSearch guifg=#002b36 guibg=#839496
 highlight Pmenu guibg=#073642 guifg=#93a1a1
 highlight PmenuSel guibg=#586e75 guifg=#839496
 highlight PmenuThumb guibg=#073642 guifg=none
 highlight PmenuSbar guibg=#073642 guifg=none
+highlight ErrorMsg guibg=none guifg=#dc322f
+
+" Special groups
+
+" Used to match console usage
 highlight ConsoleWarning guifg=#b58900
-match ConsoleWarning /console.\(warn\|log\|error\|dir\|table\)/
+
+" Used to make long lines ugly
+highlight LineLengthError guifg=#073642
+
+" Highlight console usage when using JavaScript
+au Filetype javascript match ConsoleWarning /console.\(warn\|log\|error\|dir\|table\)/
+
+" Instead of using colorcolumn and textwidth
+" we use this little snippet
+au BufWinEnter * let w:m2=matchadd('LineLengthError', '\%>120v.\+', -1)
