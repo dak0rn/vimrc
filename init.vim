@@ -40,6 +40,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'metakirby5/codi.vim'
 Plugin 'sotte/presenting.vim'
 Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'SirVer/ultisnips'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
