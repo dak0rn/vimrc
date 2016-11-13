@@ -248,3 +248,7 @@ au Filetype javascript match ConsoleWarning /console.\(warn\|log\|error\|dir\|ta
 " Instead of using colorcolumn and textwidth
 " we use this little snippet
 au BufWinEnter * let w:m2=matchadd('LineLengthError', '\%>120v.\+', -1)
+
+if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
