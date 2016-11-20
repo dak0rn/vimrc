@@ -138,6 +138,7 @@ vnoremap <Esc> <nop>
 " Settings for CtrlP
 let g:ctrlp_switch_buffer=0
 let g:ctrlp_working_path_mode=0
+set grepprg=ag\ --nogroup\ --nocolor
 " Use ag to find files
 let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
 
