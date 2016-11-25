@@ -41,6 +41,7 @@ Plugin 'metakirby5/codi.vim'
 Plugin 'sotte/presenting.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'SirVer/ultisnips'
+Plugin 'valloric/MatchTagAlways'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -234,6 +235,7 @@ highlight PmenuSel guibg=#586e75 guifg=#839496
 highlight PmenuThumb guibg=#073642 guifg=none
 highlight PmenuSbar guibg=#073642 guifg=none
 highlight ErrorMsg guibg=none guifg=#dc322f
+highlight MatchParen guifg=#dc322f guibg=none
 
 " Special groups
 
@@ -259,3 +261,12 @@ let g:user_emmet_settings = {
 \      'extends' : 'jsx',
 \  },
 \}
+
+" Highlight matchings tags
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'javascript.jsx': 1
+    \}
