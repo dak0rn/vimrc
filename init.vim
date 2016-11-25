@@ -210,7 +210,7 @@ endif
 set background=dark
 
 " Disable colors for the useless stuff
-highlight Normal guifg=#839496 guibg=#002b36
+highlight Normal guifg=#839496 guibg=#002833
 highlight Comment    guifg=#586e75
 highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
 highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
@@ -253,3 +253,9 @@ au BufWinEnter * let w:m2=matchadd('LineLengthError', '\%>120v.\+', -1)
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
+
+let g:user_emmet_settings = {
+\  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\}
