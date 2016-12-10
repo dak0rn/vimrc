@@ -42,6 +42,8 @@ Plugin 'sotte/presenting.vim'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'valloric/MatchTagAlways'
+Plugin 'mhinz/vim-startify'
+Plugin 'henrik/CamelCaseMotion'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -305,3 +307,6 @@ let g:mta_filetypes = {
     \ 'jinja' : 1,
     \ 'javascript.jsx': 1
     \}
+
+" Don't highlight long lines
+set synmaxcol=300
