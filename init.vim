@@ -44,6 +44,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'valloric/MatchTagAlways'
 Plugin 'mhinz/vim-startify'
 Plugin 'henrik/CamelCaseMotion'
+Plugin 'NLKNguyen/papercolor-theme'
 
 " Install plugins if vundle has just been installed
 if s:v_installed == 0
@@ -58,7 +59,7 @@ filetype plugin indent on
 set showcmd
 
 " Syntax highlighting
-syntax on
+syntax off
 
 " Use a menu for auto completion of files and folders
 set wildmenu
@@ -210,71 +211,14 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+colorscheme PaperColor
+
 let termmode=$my_vim_mode
-
-if 'dark' == termmode
-    set background=dark
-
-    " Disable colors for the useless stuff
-    highlight Normal guibg=#1c1c1c guifg=#878787
-    highlight Comment    guifg=#545454
-    highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Identifier ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Statement  ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight PreProc    ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Type       ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Todo guibg=none guifg=#268bd2
-    highlight StatusLine ctermbg=NONE cterm=NONE guibg=#3a3a3a gui=none
-    highlight StatusLineNC ctermbg=none cterm=none guibg=#3a3a3a guifg=#002b36 gui=none
-    highlight LineNr ctermfg=none guifg=#586e75 cterm=none term=none gui=none
-    highlight CursorLineNr ctermfg=none guifg=#2aa198 cterm=none term=none gui=none
-    highlight VertSplit guifg=#3a3a3a guibg=#3a3a3a
-    highlight NonText guifg=#1c1c1c
-    highlight SpecialKey guifg=#586e75
-    highlight Search guifg=#1c1c1c guibg=#878787
-    highlight Pmenu guibg=#444444 guifg=#93a1a1
-    highlight PmenuSel guibg=#222222 guifg=#839496
-    highlight PmenuThumb guibg=#444444 guifg=none
-    highlight PmenuSbar guibg=#444444 guifg=none
-    highlight ErrorMsg guibg=none guifg=#dc322f
-    highlight MatchParen guifg=#dc322f guibg=none
-endif
-
 if 'light' == termmode
     set background=light
-
-    " Disable colors for the useless stuff
-    highlight Normal guifg=#545454 guibg=#eee
-    highlight Comment    guifg=#93a1a1
-    highlight Error      ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Constant   ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Identifier ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Statement  ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight PreProc    ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Type       ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Special    ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Underlined ctermfg=none guifg=none cterm=none term=none gui=none guibg=none
-    highlight Todo guibg=none guifg=#268bd2
-    highlight StatusLine ctermbg=NONE cterm=NONE guibg=#d0d0d0 gui=none
-    highlight StatusLineNC ctermbg=none cterm=none guibg=#d0d0d0 guifg=#93a1a1 gui=none
-    highlight LineNr ctermfg=none guifg=#93a1a1 cterm=none term=none gui=none
-    highlight CursorLineNr ctermfg=none guifg=#2aa198 cterm=none term=none gui=none
-    highlight VertSplit guifg=#d0d0d0 guibg=#d0d0d0
-    highlight NonText guifg=#fdf6e3
-    highlight SpecialKey guifg=#93a1a1
-    highlight Search guifg=#002b36 guibg=#839496
-    highlight Pmenu guibg=#d0d0d0 guifg=#444444
-    highlight PmenuSel guibg=#93a1a1 guifg=#eee8d5
-    highlight PmenuThumb guibg=#d0d0d0 guifg=none
-    highlight PmenuSbar guibg=#d0d0d0 guifg=none
-    highlight ErrorMsg guibg=none guifg=#dc322f
-    highlight MatchParen guifg=#dc322f guibg=none
+else
+    set background=dark
 endif
-
-" Special groups
 
 " Used to match console usage
 highlight ConsoleWarning guifg=#b58900
@@ -307,6 +251,3 @@ let g:mta_filetypes = {
     \ 'jinja' : 1,
     \ 'javascript.jsx': 1
     \}
-
-" Don't highlight long lines
-set synmaxcol=300
