@@ -251,3 +251,5 @@ let g:mta_filetypes = {
     \ 'jinja' : 1,
     \ 'javascript.jsx': 1
     \}
+
+let g:ftplugin_sql_omni_key = '<C-j>'
