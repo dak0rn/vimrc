@@ -127,6 +127,9 @@ noremap <silent> H :nohl<CR>
 " Trigger CtrlP search with \]
 noremap <silent> <leader>] :CtrlP<CR>
 
+" NERDTree is toggled with \'
+noremap <silent> <leader>' :NERDTreeToggle<CR>
+
 " Shortcuts for fugitive
 noremap <silent> <leader>\c :Gwrite<CR>:Gcommit<CR>
 noremap <silent> <leader>\s :Gstatus<CR>
