@@ -1,110 +1,79 @@
-" Vundle setup
-filetype off
+" We want to use KSH
+set shell=ksh
 
-" Detect the type of vim used here
-if has('nvim')
+" FZF is set up with rg
+" Ensure we have that
+if ! executable("rg")
+	echo "Cannot find executable 'rg' in $PATH\n"
+	call getchar(1)
+endif
+
+" Detect the editor used
+if has("nvim")
     let s:editor_dir=expand("~/.config/nvim")
 else
-    let s:editor_dir=expand("~/.vim")
+    let s:editor_dir=expand("~/.vim");
 endif
 
-" State flags
-let s:v_installed=1
-let s:v_readme=s:editor_dir . '/bundle/Vundle.vim/README.md'
-
-" Check if Vundle has already been cloned locally
-if !filereadable(s:v_readme)
-    echo "Installing vundle..."
-    echo ""
-    silent call mkdir(s:editor_dir . '/bundle', 'p')
-    silent execute "!git clone https://github.com/VundleVim/Vundle.vim " . s:editor_dir . "/bundle/Vundle.vim"
-    let s:v_installed=0
-endif
-
-" Update the runtime path correctly
-let &rtp .= ',' . s:editor_dir . '/bundle/Vundle.vim'
-
-" Start vundle
-call vundle#begin(s:editor_dir . '/bundle')
-
-" Vundle plugins
-Plugin 'mattn/emmet-vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'othree/yajs.vim'
-Bundle 'mxw/vim-jsx'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-commentary'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'metakirby5/codi.vim'
-Plugin 'sotte/presenting.vim'
-Plugin 'kien/rainbow_parentheses.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'valloric/MatchTagAlways'
-Plugin 'mhinz/vim-startify'
-Plugin 'henrik/CamelCaseMotion'
-Plugin 'NLKNguyen/papercolor-theme'
-
-" Install plugins if vundle has just been installed
-if s:v_installed == 0
-    :PluginInstall
-endif
-
-call vundle#end()
-
-" Filetype detection
 filetype plugin indent on
-" Display commands at the bottom of the screen
+let s:plug_file=s:editor_dir . "/autoload/plug.vim"
+
+" Install vim-plug if it is not already installed
+if !filereadable(s:plug_file)
+    echo "Installing vim-plug..."
+    echo "**********************"
+    execute "!curl -fLo " . s:plug_file . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+
+    " Automatically installed defined plugins
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+let &rtp .= ',' . s:plug_file
+
+" Start vim-plug
+call plug#begin(s:editor_dir . "/plugged")
+
+Plug 'mattn/emmet-vim'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-commentary'
+Plug 'SirVer/ultisnips'
+Plug 'sbdchd/neoformat'
+Plug 'airblade/vim-gitgutter'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+
+" Initialize plugins
+call plug#end()
+
+filetype plugin indent off
 set showcmd
-
-" Syntax highlighting
 syntax off
-
-" Use a menu for auto completion of files and folders
 set wildmenu
-
-" Automatic indentation
 set smartindent
 
-" Smart case matching
 set ignorecase
 set smartcase
 
-" Tab width: four characters
 set shiftwidth=4
 set tabstop=4
+set noexpandtab
 
-" Spaces are better than tabs
-set expandtab
-
-" Smart identation
 set smarttab
 
-" Line numbers and length
-set rnu nu      " Use relative line numbering and show the current line number
-set nowrap      " Do not wrap on load
-set fo-=t       " Do not wrap when typing
+set rnu nu
+set nowrap
+set fo-=t
 
-
-" Better moving
 noremap j gj
 noremap k gk
-
-" Yank to eol like C, S or D do
 noremap Y y$
-
-" Better indentation in visual mode
 vnoremap < <gv
 vnoremap > >gv
 
-" Moving with B / E feels better than with ^/$
-noremap B ^
-noremap E $
-noremap ^ <nop>
-noremap $ <nop>
-
-" We do not use arrow keys
+" Turn off arrow keys
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Right> <NOP>
@@ -115,45 +84,20 @@ inoremap <Down> <NOP>
 inoremap <Right> <NOP>
 inoremap <Left> <NOP>
 
-" Make split switching easier
+" Easier split switching
 noremap <C-j> <C-W><C-J>
 noremap <C-h> <C-W><C-H>
 noremap <C-k> <C-W><C-K>
 noremap <C-l> <C-W><C-L>
 
-" Hide search results with H
+let mapleader = ','
+
 noremap <silent> H :nohl<CR>
 
-" Trigger CtrlP search with \]
-noremap <silent> <leader>] :CtrlP<CR>
-
-" NERDTree is toggled with \'
 noremap <silent> <leader>' :NERDTreeToggle<CR>
 
-" Shortcuts for fugitive
-noremap <silent> <leader>\c :Gwrite<CR>:Gcommit<CR>
-noremap <silent> <leader>\s :Gstatus<CR>
-noremap <silent> <leader>\p :echo "Pushing..."<CR>:Gpush<CR>:echo "Pushing done."<CR>
-
-" I used to press <C-c> to exit a mode but this is not
-" quite the same as using <Esc>. Therefore it's remapped.
 vnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
-inoremap <Esc> <nop>
-vnoremap <Esc> <nop>
-
-" Settings for CtrlP
-let g:ctrlp_switch_buffer=0
-let g:ctrlp_working_path_mode=0
-set grepprg=ag\ --nogroup\ --nocolor
-" Use ag to find files
-let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
-
-" Status line
-set laststatus=2
-
-" Right aligned: git status, modified flag, filename w/out path
-set statusline=%=%{fugitive#statusline()}\ %m\ %t
 
 " Show diff for unsaved changes
 function! s:DiffWithSaved()
@@ -167,43 +111,23 @@ endfunction
 com! DiffSaved call s:DiffWithSaved()
 noremap <leader>d :DiffSaved<CR>
 
-" Make backspace very awesome
 set backspace=2
-
-" Show current mode
 set showmode
-
-" Don't highlight current line
 set nocursorline
-
-" We want to use UTF-8
 scriptencoding utf-8
 
-" Find as you type search
 set incsearch
-
-" Highlight search results
 set hlsearch
-
-" Trailing space character is that fancy dot
-set listchars=trail:•
-" Show whitespace characters
+set listchars=tab:\ \ ,trail:•
 set list
 
-" Select the last insert
 nnoremap gV `[v`]
 
-" Split on right and on bottom
 set splitright
 set splitbelow
-
-" Things to ignore when searching, e.g. with CtrlP
 set wildignore+=**/bower_components/*,**/node_modules/*,**/vendor/*,**/target/*
-
-" Disable mouse
 set mouse=
 
-" Backup settings
 set backup
 set backupdir=/tmp
 set backupskip=/tmp/*,/private/tmp/*
@@ -214,27 +138,10 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme PaperColor
-
-let termmode=$my_vim_mode
-if 'light' == termmode
-    set background=light
-else
-    set background=dark
-endif
-
-" Used to match console usage
-highlight ConsoleWarning guifg=#b58900
-
-" Used to make long lines ugly
-highlight LineLengthError guifg=#073642
-
-" Highlight console usage when using JavaScript
-au Filetype javascript match ConsoleWarning /console.\(warn\|log\|error\|dir\|table\)/
-
-" Instead of using colorcolumn and textwidth
-" we use this little snippet
-au BufWinEnter * let w:m2=matchadd('LineLengthError', '\%>120v.\+', -1)
+highlight LineNr guifg=#aaaaaa
+highlight NonText guifg=#aaaaaa
+highlight CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+highlight MatchParen cterm=NONE ctermbg=NONE ctermfg=red guibg=NONE guifg=red
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -246,13 +153,28 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-" Highlight matchings tags
-let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'jinja' : 1,
-    \ 'javascript.jsx': 1
-    \}
+let g:neoformat_try_formatprg = 1
 
-let g:ftplugin_sql_omni_key = '<C-j>'
+augroup NeoformatAutoFormat
+    autocmd!
+    autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote
+    autocmd BufWritePre *.js,*.jsx,*.css Neoformat
+augroup END
+
+" Configure the status line
+set laststatus=2
+set statusline=%f\ %m%r%=%l/%L
+
+"FZF configuration
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+noremap <silent> <leader>; :Files<CR>
+noremap <silent> <leader>. :Rg<CR>
+
+" Ultisnips
+let g:UltiSnipsExpandTrigger="<tab>"

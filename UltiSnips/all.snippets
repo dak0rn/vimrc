@@ -1,137 +1,133 @@
-# Snippet configuration
+# Global python functions
+global !p
 
-## JavaScript snippets
+def fmtStateIdent(ident):
+	if 0 == len(ident):
+		return ""
 
-# React container
-snippet :react-cont
-import { Component } from 'react';
-import { createSelector } from 'reselect';
-import { connect } from 'react-redux';
-import ${4:Actions} from '$5';
+	return ident[0] + ''.join(x for x in ident.title())[1:].replace("_","")
 
-export class $1 extends Component {
+endglobal
 
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
-		return $0;
-	}
-
-	shouldComponentUpdate() {
-		return false;
-	}
-
-	componentWillMount() {
-	}
-
-}
-
-const mapStateToProps = createSelector(
-	// Filters
-	state => state.$2,
-
-	${3:$2} => ({ $3 })
-);
-export default connect(mapStateToProps)($1);
+# The snippets
+snippet :r-action-type "" b
+export default $1 = '$1';
+$0
 endsnippet
 
-# React component
-snippet :react-component
-import { Component } from 'react';
 
-export default class $1 extends Component {
+snippet :r-action-creator "" b
+export const $1 = ($2) =>
+	async function(dispatch) {
+		$0
 
-	render() {
-		return $0;
-	}
-
-}
+		dispatch({
+			type: $3,
+			payload: {
+			}
+		});
+	};
 endsnippet
 
-# Reducer skeleton
-snippet :redux-reducer
-import createReducer from '${1:unnest-reducer}';
-import * as Actions from '$2';
-import ${3:Immutable} from '${4:seamless-immutable}';
 
-const initial = ${5:Immutable}({
-});
+snippet :r-action-creator-tc "" b
+export const $1 = ($2) =>
+	async function(dispatch) {
+		try {
+			$0
+
+			dispatch({
+				type: $3,
+				payload: {
+				}
+			});
+		} catch(err) {
+			dispatch({
+				type: $4,
+				payload: {
+					message: err.body ? err.body.message : err.message,
+					status: err.status
+				}
+			});
+		}
+	};
+endsnippet
+
+
+snippet :r-reducer-file "" b
+/*
+$1
+*/
+import createReducer from 'app/common/reducer';
+import {
+	$2,
+	$3_RESET
+} from '../actions/$4';
+
+const initialState = {
+	$5
+};
 
 const reducers = {
 
-	$0
+	[$7](state, action) {
+		$0
+	},
 
+	// Returns the initial state
+	[$3_RESET]() {
+		return initialState;
+	}
 };
 
-export default createReducer(reducers, initial);
+export default {
+	$6: createReducer(reducers, initialState)
+};
 endsnippet
 
-snippet :reducer-fn
-/**
- * $2
- *
- * @param {${3:object}} state Current state
- * @param {FSA} action Flux Standard Action
- * @return {$3} Next state
- */
-[ Actions.$1 ](state, action) {
-	$0
-}
-endsnippet
-
-snippet :reducer-async-fn
-/*
- * $2
- */
-[ Actions.$1 ]: {
-
-	/**
-	 * $3
-	 *
-	 * @param {${4:object}} state Current state
-	 * @return {$4} Next state
-	 */
-	PENDING(state) {
-		return state.merge({
-			${5:loading}: true,
-			$5Failed: false
-		});
-	},
-
-	/**
-	 * $6
-	 *
-	 * @param {$4} state Current state
-	 * @return {$4} Next state
-	 */
-	REJECTED(state) {
-		return state.merge({
-			$5: false,
-			$5Failed: true
-		});
-	},
-
-	/**
-	 * $7
-	 *
-	 * @param {$4} state Current state
-	 * @param {FSA} action Flux Standard Action
-	 * @return {$4} Next state
-	 */
-	FULFILLED(state, action) {
-		const { body } = action.payload;
+snippet :r-reducer
+	// $1
+	// state	Current state
+	${4:// action	Flux Standard Action}
+	//
+	// Returns the next state
+	[$2](state${3:, action}) {
 		$0
+	}
+endsnippet
 
-		return state.merge({
-			$5: false
-		});
+snippet :r-container
+/*
+$1
+*/
+import { PureComponent } from 'react';
+import { createSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { $2, reset } from '../actions/$3';
+import { bindAll } from 'app/common/utils';
+
+@connect(createSelector( state => state.$4, (`!p snip.rv = fmtStateIdent(t[4])`) => ({ `!p snip.rv = fmtStateIdent(t[4])` })
+export default class $5 extends PureComponent {
+
+	constructor(props) {
+		super(props);
+
+		bindAll(this, ['load']);
+	}
+
+	render() {
+	}
+
+	componentWillUnmount() {
+		this.props.dispatch(reset());
+	}
+
+	componentDidMount() {
+		this.load();
+	}
+
+	load() {
+		// TODO Perform loading
 	}
 }
-endsnippet
-
-snippet :action-type
-export const $1 = '$1';
-$0
 endsnippet
