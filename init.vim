@@ -166,15 +166,18 @@ set laststatus=2
 set statusline=%f\ %m%r%=%l/%L
 
 "FZF configuration
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow -g "!.git/*" -g "!vendor/*" -g "!node_modules/*"'
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --smart-case -g "!.git/*" -g "!vendor/*" -g "!node_modules/*" '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
 noremap <silent> <leader>; :Files<CR>
 noremap <silent> <leader>. :Rg<CR>
+noremap <silent> <leader>l :Buffers<CR>
+noremap <silent> <leader>k :BLines<CR>
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
