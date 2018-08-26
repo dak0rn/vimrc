@@ -94,7 +94,7 @@ let mapleader = ','
 
 noremap <silent> H :nohl<CR>
 
-noremap <silent> <leader>' :NERDTreeToggle<CR>
+noremap <silent> <leader>' :NERDTreeFind<CR>
 
 vnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
@@ -141,7 +141,18 @@ endif
 highlight LineNr guifg=#aaaaaa
 highlight NonText guifg=#aaaaaa
 highlight CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=red guibg=NONE guifg=red
 highlight MatchParen cterm=NONE ctermbg=NONE ctermfg=red guibg=NONE guifg=red
+highlight Special cterm=NONE ctermfg=red guifg=red ctermbg=NONE guibg=NONE
+highlight Statement cterm=NONE ctermfg=red guifg=red ctermbg=NONE guibg=NONE
+highlight Type cterm=NONE ctermfg=red guifg=red ctermbg=NONE guibg=NONE
+highlight Underlined ctermfg=red guifg=red ctermbg=NONE guibg=NONE
+highlight Question ctermfg=red guifg=red ctermbg=NONE guibg=NONE
+highlight MoreMsg ctermfg=red guifg=red ctermbg=NONE guibg=NONE
+highlight StatusLineNC gui=none cterm=none guibg=gray ctermbg=gray guifg=black ctermfg=black
+highlight StatusLine gui=reverse cterm=reverse
+highlight Search gui=none cterm=none guifg=#ff6600 guibg=none ctermfg=yellow ctermbg=none
+highlight Visual gui=none cterm=none guifg=black guibg=yellow ctermfg=black ctermbg=yellow
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
