@@ -4,8 +4,8 @@ set shell=ksh
 " FZF is set up with rg
 " Ensure we have that
 if ! executable("rg")
-	echo "Cannot find executable 'rg' in $PATH\n"
-	call getchar(1)
+        echo "Cannot find executable 'rg' in $PATH\n"
+        call getchar(1)
 endif
 
 " Detect the editor used
@@ -15,7 +15,7 @@ else
     let s:editor_dir=expand("~/.vim");
 endif
 
-filetype plugin indent on
+filetype indent plugin off
 let s:plug_file=s:editor_dir . "/autoload/plug.vim"
 
 " Install vim-plug if it is not already installed
@@ -48,7 +48,7 @@ Plug 'junegunn/fzf.vim'
 " Initialize plugins
 call plug#end()
 
-filetype plugin indent off
+filetype indent plugin off
 set showcmd
 syntax off
 set wildmenu
@@ -95,6 +95,7 @@ let mapleader = ','
 noremap <silent> H :nohl<CR>
 
 noremap <silent> <leader>' :NERDTreeFind<CR>
+noremap <silent> <leader>z :NERDTreeToggle<CR>
 
 vnoremap <C-c> <Esc>
 inoremap <C-c> <Esc>
@@ -153,6 +154,8 @@ highlight StatusLineNC gui=none cterm=none guibg=gray ctermbg=gray guifg=black c
 highlight StatusLine gui=reverse cterm=reverse
 highlight Search gui=none cterm=none guifg=#ff6600 guibg=none ctermfg=yellow ctermbg=none
 highlight Visual gui=none cterm=none guifg=black guibg=yellow ctermfg=black ctermbg=yellow
+highlight Pmenu gui=none cterm=none guifg=white guibg=red ctermfg=white ctermbg=red
+highlight TODO gui=none cterm=none guifg=black guibg=orange ctermfg=white ctermbg=red
 
 if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
@@ -168,8 +171,17 @@ let g:neoformat_try_formatprg = 1
 
 augroup NeoformatAutoFormat
     autocmd!
-    autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote
-    autocmd BufWritePre *.js,*.jsx,*.css Neoformat
+    autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ babylon
+    autocmd FileType css setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ css
+    autocmd FileType vue setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ vue
+    autocmd BufWritePre *.js,*.jsx,*.css,*.vue Neoformat
+augroup END
+
+au BufNewFile,BufRead *.vue set filetype=vue
+
+augroup HighlightTODO
+        autocmd!
+        autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
 augroup END
 
 " Configure the status line
@@ -192,3 +204,6 @@ noremap <silent> <leader>k :BLines<CR>
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger="<tab>"
+
+" Disable comment continuiation
+autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
