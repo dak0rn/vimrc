@@ -4,8 +4,8 @@ set shell=ksh
 " FZF is set up with rg
 " Ensure we have that
 if ! executable("rg")
-        echo "Cannot find executable 'rg' in $PATH\n"
-        call getchar(1)
+	echo "Cannot find executable 'rg' in $PATH\n"
+	call getchar(1)
 endif
 
 " Detect the editor used
@@ -180,8 +180,8 @@ augroup END
 au BufNewFile,BufRead *.vue set filetype=vue
 
 augroup HighlightTODO
-        autocmd!
-        autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+	autocmd!
+	autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
 augroup END
 
 " Configure the status line
