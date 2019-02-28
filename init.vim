@@ -174,7 +174,8 @@ augroup NeoformatAutoFormat
     autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ babylon
     autocmd FileType css setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ css
     autocmd FileType vue setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ vue
-    autocmd BufWritePre *.js,*.jsx,*.css,*.vue Neoformat
+    autocmd FileType go setlocal formatprg=gofmt
+    autocmd BufWritePre *.js,*.jsx,*.css,*.vue,*.go Neoformat
 augroup END
 
 au BufNewFile,BufRead *.vue set filetype=vue
@@ -189,10 +190,10 @@ set laststatus=2
 set statusline=%f\ %m%r%=%l/%L
 
 "FZF configuration
-let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow -g "!.git/*" -g "!vendor/*" -g "!node_modules/*"'
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,vendor,yarn.lock}"'
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -g "!.git/*" -g "!vendor/*" -g "!node_modules/*" '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --smart-case -g "!{.git,node_modules,vendor,yarn.lock}" '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
@@ -203,7 +204,9 @@ noremap <silent> <leader>l :Buffers<CR>
 noremap <silent> <leader>k :BLines<CR>
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<C-j>"
 
 " Disable comment continuiation
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
+
+let g:NERDTreeNodeDelimiter = "\u00a0"
