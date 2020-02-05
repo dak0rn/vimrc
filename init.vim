@@ -49,8 +49,8 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 filetype indent plugin off
-set showcmd
 syntax off
+set showcmd
 set wildmenu
 set smartindent
 
@@ -136,13 +136,17 @@ set directory=/tmp
 set writebackup
 
 if (has("termguicolors"))
- set termguicolors
+	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+	" fixes glitch? in colors when using vim with tmux
+	set background=light
+	set t_Co=256
 endif
 
-highlight LineNr guifg=#aaaaaa
+highlight LineNr guifg=#aaaaaa ctermfg=gray
 highlight NonText guifg=#aaaaaa
-highlight CursorLine cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=red guibg=NONE guifg=red
+highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=140 guibg=NONE guifg=140
 highlight MatchParen cterm=NONE ctermbg=NONE ctermfg=red guibg=NONE guifg=red
 highlight Special cterm=NONE ctermfg=red guifg=red ctermbg=NONE guibg=NONE
 highlight Statement cterm=NONE ctermfg=red guifg=red ctermbg=NONE guibg=NONE
@@ -153,7 +157,7 @@ highlight MoreMsg ctermfg=red guifg=red ctermbg=NONE guibg=NONE
 highlight StatusLineNC gui=none cterm=none guibg=gray ctermbg=gray guifg=black ctermfg=black
 highlight StatusLine gui=reverse cterm=reverse
 highlight Search gui=none cterm=none guifg=#ff6600 guibg=none ctermfg=yellow ctermbg=none
-highlight Visual gui=none cterm=none guifg=black guibg=yellow ctermfg=black ctermbg=yellow
+highlight Visual gui=none cterm=none guifg=black guibg=a790d5 ctermfg=black ctermbg=140
 highlight Pmenu gui=none cterm=none guifg=white guibg=red ctermfg=white ctermbg=red
 highlight TODO gui=none cterm=none guifg=black guibg=orange ctermfg=white ctermbg=red
 
@@ -174,11 +178,13 @@ augroup NeoformatAutoFormat
     autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ babylon
     autocmd FileType css setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ css
     autocmd FileType vue setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ vue
+    autocmd FileType svelte setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --plugin-search-dir=/home/dak0rn/.npm-global/lib\ --parser\ svelte
     autocmd FileType go setlocal formatprg=gofmt
-    autocmd BufWritePre *.js,*.jsx,*.css,*.vue,*.go Neoformat
+    autocmd BufWritePre *.svelte,*.js,*.jsx,*.css,*.vue,*.go Neoformat
 augroup END
-
+	
 au BufNewFile,BufRead *.vue set filetype=vue
+au BufNewFile,BufRead *.svelte set filetype=svelte
 
 augroup HighlightTODO
 	autocmd!
