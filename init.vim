@@ -1,5 +1,3 @@
-" We want to use KSH
-
 " FZF is set up with rg
 " Ensure we have that
 if ! executable("rg")
