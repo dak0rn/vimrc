@@ -1,5 +1,4 @@
 " We want to use KSH
-set shell=ksh
 
 " FZF is set up with rg
 " Ensure we have that
@@ -35,13 +34,9 @@ call plug#begin(s:editor_dir . "/plugged")
 
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-commentary'
-Plug 'SirVer/ultisnips'
 Plug 'sbdchd/neoformat'
 Plug 'airblade/vim-gitgutter'
 Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 
@@ -126,7 +121,7 @@ nnoremap gV `[v`]
 
 set splitright
 set splitbelow
-set wildignore+=**/bower_components/*,**/node_modules/*,**/vendor/*,**/target/*
+set wildignore+=**/node_modules/*,**/vendor/*,**/target/*,**/dist/*
 set mouse=
 
 set backup
@@ -165,20 +160,14 @@ if has('nvim')
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 endif
 
-let g:user_emmet_settings = {
-\  'javascript.jsx' : {
-\      'extends' : 'jsx',
-\  },
-\}
-
 let g:neoformat_try_formatprg = 1
 
 augroup NeoformatAutoFormat
     autocmd!
-    autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ babylon
-    autocmd FileType css setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ css
-    autocmd FileType vue setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ vue
-    autocmd FileType svelte setlocal formatprg=prettier\ --stdin\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --plugin-search-dir=/home/dak0rn/.npm-global/lib\ --parser\ svelte
+    autocmd FileType javascript,javascript.jsx setlocal formatprg=prettier\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ babel\ --trailing-comma\ none
+    autocmd FileType css setlocal formatprg=prettier\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ css
+    autocmd FileType vue setlocal formatprg=prettier\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --parser\ vue
+    autocmd FileType svelte setlocal formatprg=prettier\ --tab-width\ 4\ --jsx-bracket-same-line\ --print-width\ 120\ --single-quote\ --plugin-search-dir=/home/dak0rn/.npm-global/lib\ --parser\ svelte
     autocmd FileType go setlocal formatprg=gofmt
     autocmd BufWritePre *.svelte,*.js,*.jsx,*.css,*.vue,*.go Neoformat
 augroup END
@@ -209,10 +198,11 @@ noremap <silent> <leader>. :Rg<CR>
 noremap <silent> <leader>l :Buffers<CR>
 noremap <silent> <leader>k :BLines<CR>
 
-" Ultisnips
-let g:UltiSnipsExpandTrigger="<C-j>"
-
 " Disable comment continuiation
 autocmd BufNewFile,BufRead * setlocal formatoptions-=cro
 
 let g:NERDTreeNodeDelimiter = "\u00a0"
+
+au! BufNewFile,BufReadPost *.{yaml,yml} set filetype=yaml foldmethod=indent
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
